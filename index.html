@@ -448,11 +448,11 @@
 
 <div class="meta-card">
   <div class="meta-grid">
-    <div class="meta-cell"><div class="label"><span class="li li-en">Prospect name</span><span class="li li-lt">Potencialaus kliento vardas</span><span class="li li-uk">Ім'я потенційного клієнта</span><span class="li li-ru">Имя клиента</span><span class="li li-pl">Imię potencjalnego klienta</span><span class="li li-es">Nombre del prospecto</span></div><div class="fill"></div></div>
+    <div class="meta-cell"><div class="label"><span class="li li-en">Prospect name</span><span class="li li-lt">Potencialaus kliento vardas</span><span class="li li-uk">Ім'я потенційного клієнта</span><span class="li li-ru">Имя клиента</span><span class="li li-pl">Imię potencjalnego klienta</span><span class="li li-es">Nombre del prospecto</span></div><div class="fill" data-prefill="name"></div></div>
     <div class="meta-cell"><div class="label"><span class="li li-en">Source</span><span class="li li-lt">Šaltinis</span><span class="li li-uk">Джерело</span><span class="li li-ru">Источник</span><span class="li li-pl">Źródło</span><span class="li li-es">Fuente</span></div><div class="fill"></div></div>
     <div class="meta-cell"><div class="label"><span class="li li-en">Date / time of call</span><span class="li li-lt">Skambučio data / laikas</span><span class="li li-uk">Дата / час дзвінка</span><span class="li li-ru">Дата / время звонка</span><span class="li li-pl">Data / godzina rozmowy</span><span class="li li-es">Fecha / hora de la llamada</span></div><div class="fill"></div></div>
     <div class="meta-cell"><div class="label"><span class="li li-en">Agent</span><span class="li li-lt">Agentas</span><span class="li li-uk">Агент</span><span class="li li-ru">Агент</span><span class="li li-pl">Agent</span><span class="li li-es">Agente</span></div><div class="fill"></div></div>
-    <div class="meta-cell"><div class="label"><span class="li li-en">Their language</span><span class="li li-lt">Kliento kalba</span><span class="li li-uk">Мова клієнта</span><span class="li li-ru">Язык клиента</span><span class="li li-pl">Język klienta</span><span class="li li-es">Idioma del cliente</span></div><div class="fill"></div></div>
+    <div class="meta-cell"><div class="label"><span class="li li-en">Their language</span><span class="li li-lt">Kliento kalba</span><span class="li li-uk">Мова клієнта</span><span class="li li-ru">Язык клиента</span><span class="li li-pl">Język klienta</span><span class="li li-es">Idioma del cliente</span></div><div class="fill" data-prefill="langlabel"></div></div>
     <div class="meta-cell"><div class="label"><span class="li li-en">Best callback time</span><span class="li li-lt">Geriausias laikas perskambinti</span><span class="li li-uk">Найкращий час для передзвону</span><span class="li li-ru">Лучшее время для перезвона</span><span class="li li-pl">Najlepszy czas na oddzwonienie</span><span class="li li-es">Mejor hora para devolver la llamada</span></div><div class="fill"></div></div>
   </div>
 </div>
@@ -724,6 +724,7 @@
     </div>
   </div>
   <div class="submit-actions">
+    <button class="btn-ghost" id="openKeapBtn" style="display:none"></button>
     <button class="btn-ghost" id="copyKeapBtn"></button>
     <button class="btn-primary" id="submitCallBtn"></button>
   </div>
@@ -841,8 +842,10 @@
     loggedReset:  {en:'✓ Call logged · form reset for next call', lt:'✓ Skambutis įrašytas · forma paruošta kitam', uk:'✓ Дзвінок збережено · форму скинуто', ru:'✓ Звонок записан · форма сброшена', pl:'✓ Rozmowa zapisana · formularz wyczyszczony', es:'✓ Llamada registrada · formulario reiniciado'},
     logged:       {en:'✓ Call logged', lt:'✓ Skambutis įrašytas', uk:'✓ Дзвінок збережено', ru:'✓ Звонок записан', pl:'✓ Rozmowa zapisana', es:'✓ Llamada registrada'},
     noFields:     {en:'No outcome fields filled. Submit this call anyway?', lt:'Nėra užpildytų laukų. Vis tiek pateikti?', uk:'Поля результату порожні. Все одно надіслати?', ru:'Поля результата не заполнены. Всё равно отправить?', pl:'Pola wyniku puste. Wysłać mimo to?', es:'No hay campos llenados. ¿Enviar de todos modos?'},
+    openKeap:     {en:'Open in Keap ↗', lt:'Atidaryti Keap ↗', uk:'Відкрити в Keap ↗', ru:'Открыть в Keap ↗', pl:'Otwórz w Keap ↗', es:'Abrir en Keap ↗'},
   };
   const t = (key) => (TR[key] && TR[key][document.body.dataset.lang]) || TR[key].en;
+  let currentCid = '';  // Keap contact ID passed via URL (turboDial merge field)
 
   // ---- language switching ----
   const savedLang = localStorage.getItem('goodwill-phone-lang');
@@ -863,6 +866,8 @@
     if (copyBtn && !copyState) copyBtn.textContent = t('copyKeap');
     const submitBtn = document.getElementById('submitCallBtn');
     if (submitBtn) submitBtn.textContent = t('submitNext');
+    const openBtn = document.getElementById('openKeapBtn');
+    if (openBtn) openBtn.textContent = t('openKeap');
   }
 
   const startLang = supported.includes(savedLang) ? savedLang : 'en';
@@ -889,6 +894,7 @@
     const input = document.createElement('input');
     input.type = 'text'; input.className = 'txt-real'; input.dataset.k = nextKey('txt');
     if (div.dataset.call) input.dataset.call = div.dataset.call;
+    if (div.dataset.prefill) input.dataset.prefill = div.dataset.prefill;
     div.parentNode.replaceChild(input, div);
     if (data[input.dataset.k]) input.value = data[input.dataset.k];
     allInputs.push(input);
@@ -958,6 +964,9 @@
     const lines = [
       'Goodwill Phone Invitation Call · ' + date + ' · lang: ' + lang.toUpperCase(),
     ];
+    if (currentCid) lines.push('Keap contact ID: ' + currentCid);
+    if (outcome.name) lines.push('Contact: ' + outcome.name);
+    if (outcome.phone) lines.push('Phone: ' + outcome.phone);
     if (outcome.booked) lines.push('Appointment booked: ' + outcome.booked);
     if (outcome.when) lines.push('When/format: ' + outcome.when);
     if (outcome.contact) lines.push('Email/cell confirmed: ' + outcome.contact);
@@ -1033,8 +1042,72 @@
     };
   }
 
+  // ============ Prefill from URL (turboDial screen-pop / Keap merge fields) ============
+  // turboDial Call-Outcome URL example:
+  //   https://.../goodwill-call-script/?name=~Contact.FirstName~+~Contact.LastName~&phone=~Contact.Phone1~&email=~Contact.Email~&contactid=~Contact.Id~&lang=~Contact._PreferredLanguage~
+  let prefillLang = '';
+  (function prefillFromURL() {
+    const q = new URLSearchParams(location.search);
+    const pick = (...keys) => { for (const k of keys) { const v = q.get(k); if (v && v.trim() && !/^~/.test(v.trim())) return v.trim(); } return ''; };
+    let fullName = pick('name','contactname','fullname');
+    const fn = pick('first_name','firstname','first');
+    const ln = pick('last_name','lastname','last');
+    if (!fullName && (fn || ln)) fullName = (fn + ' ' + ln).trim();
+    const phoneP = pick('phone','phone1','cell','mobile');
+    const emailP = pick('email');
+    currentCid = pick('contactid','contact_id','cid','keapid');
+    const langP = (pick('lang','language') || '').toLowerCase().slice(0,2);
+    if (supported.includes(langP)) prefillLang = langP;
+
+    const hasParams = fullName || phoneP || emailP || currentCid;
+    if (!hasParams) { wireOpenKeap(); return; }
+
+    // New contact arrived → don't mix with the previous call's saved data
+    let prevCid = '';
+    try { prevCid = localStorage.getItem('goodwill-current-cid') || ''; } catch(e) {}
+    if (currentCid && currentCid !== prevCid) {
+      try { localStorage.removeItem(ns); } catch(e) {}
+      allInputs.forEach(el => { if (el.type === 'checkbox') el.checked = false; else el.value = ''; });
+    }
+
+    const setBy = (attr, val, value) => { if (!value) return; document.querySelectorAll('input.txt-real[data-' + attr + '="' + val + '"]').forEach(i => { i.value = value; }); };
+    setBy('prefill', 'name', fullName);
+    setBy('call', 'name', fullName);
+    setBy('call', 'phone', phoneP);
+    setBy('call', 'contact', emailP || phoneP);
+    if (prefillLang) setBy('prefill', 'langlabel', ({en:'English',lt:'Lietuvių',uk:'Українська',ru:'Русский',pl:'Polski',es:'Español'})[prefillLang]);
+
+    // Drop the first name straight into the spoken script lines
+    if (fullName) injectFirstName(fullName.split(/\s+/)[0]);
+
+    if (currentCid) { try { localStorage.setItem('goodwill-current-cid', currentCid); } catch(e) {} }
+    wireOpenKeap();
+    save();
+  })();
+
+  function injectFirstName(first) {
+    if (!first) return;
+    const tokens = ['[Prospect first name]', '[Vardas]', "[Ім'я]", '[Имя]', '[Imię]', '[Nombre]'];
+    document.querySelectorAll('.say-box .l, .ask-box .l, .say-mini .l, .listen-box .l').forEach(box => {
+      const walk = document.createTreeWalker(box, NodeFilter.SHOW_TEXT, null);
+      const nodes = []; while (walk.nextNode()) nodes.push(walk.currentNode);
+      nodes.forEach(n => { let v = n.nodeValue; tokens.forEach(tk => { if (v.indexOf(tk) >= 0) v = v.split(tk).join(first); }); if (v !== n.nodeValue) n.nodeValue = v; });
+    });
+  }
+
+  function wireOpenKeap() {
+    const openBtn = document.getElementById('openKeapBtn');
+    if (!openBtn) return;
+    if (currentCid) {
+      openBtn.style.display = '';
+      openBtn.onclick = () => window.open('https://goodwill.infusionsoft.com/Contact/manageContact.jsp?view=edit&ID=' + encodeURIComponent(currentCid), '_blank', 'noopener');
+    } else {
+      openBtn.style.display = 'none';
+    }
+  }
+
   // initial paint
-  setLang(startLang);
+  setLang(prefillLang || startLang);
   updateCounters();
 })();
 </script>
