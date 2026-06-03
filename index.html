@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Goodwill Financial — Phone Invitation Script (6 languages)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  @page { size: Letter; margin: 0.5in; }
+  * { box-sizing: border-box; }
+  :root {
+    --navy: #0b2545;
+    --navy-light: #134074;
+    --gold: #c89b3c;
+    --gold-light: #e0b558;
+    --gold-soft: #fef9e6;
+    --ink: #0f172a;
+    --ink-soft: #475569;
+    --line: #e2e8f0;
+    --paper: #ffffff;
+    --paper-soft: #f8fafc;
+    --green: #059669;
+    --shadow: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+    --shadow-lg: 0 4px 6px -1px rgba(15, 23, 42, 0.08);
+  }
+  html, body {
+    margin: 0; padding: 0;
+    font-family: "Inter", -apple-system, "Segoe UI", system-ui, sans-serif;
+    color: var(--ink);
+    background: var(--paper-soft);
+    line-height: 1.5;
+    font-size: 10.5pt;
+  }
+  body { max-width: 8.5in; margin: 0 auto; padding: 0.5in; background: var(--paper); }
+
+  .hero {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+    color: #fff;
+    padding: 22px 28px;
+    border-radius: 12px;
+    margin: 0 0 16px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, var(--gold) 0%, transparent 65%);
+    opacity: 0.18;
+  }
+  .hero .eyebrow {
+    color: var(--gold-light);
+    font-size: 10pt;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .hero h1 {
+    font-family: "Cormorant Garamond", "Times New Roman", serif;
+    font-weight: 600;
+    font-size: 26pt;
+    margin: 0 0 2px;
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+  }
+  .hero .tagline {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    color: var(--gold-light);
+    font-size: 12pt;
+  }
+  .hero .sub {
+    color: rgba(255,255,255,0.75);
+    font-size: 10pt;
+    margin-top: 8px;
+  }
+
+  .lang-switcher {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--navy); padding: 8px 12px;
+    border-radius: 8px; margin: 0 0 14px;
+    display: flex; gap: 6px; flex-wrap: wrap; align-items: center;
+    box-shadow: var(--shadow-lg);
+  }
+  .lang-switcher .label {
+    color: var(--gold-light); font-size: 9pt; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.8px;
+    margin-right: 6px;
+  }
+  .lang-switcher button {
+    background: transparent; color: #fff;
+    border: 1px solid rgba(255,255,255,0.25);
+    padding: 5px 12px; border-radius: 6px;
+    font-weight: 700; font-size: 10pt;
+    cursor: pointer; font-family: inherit;
+  }
+  .lang-switcher button:hover { background: rgba(255,255,255,0.1); }
+  .lang-switcher button.active {
+    background: var(--gold); color: var(--navy);
+    border-color: var(--gold);
+  }
+
+  /* === language visibility === */
+  .l, .li { display: none; }
+  body[data-lang="en"] .l-en, body[data-lang="lt"] .l-lt, body[data-lang="uk"] .l-uk,
+  body[data-lang="ru"] .l-ru, body[data-lang="pl"] .l-pl, body[data-lang="es"] .l-es { display: block; }
+  body[data-lang="en"] .li-en, body[data-lang="lt"] .li-lt, body[data-lang="uk"] .li-uk,
+  body[data-lang="ru"] .li-ru, body[data-lang="pl"] .li-pl, body[data-lang="es"] .li-es { display: inline; }
+
+  .meta-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin: 0 0 14px;
+    box-shadow: var(--shadow);
+  }
+  .meta-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px 16px;
+  }
+  .meta-cell .label {
+    font-size: 8.5pt; font-weight: 700; color: var(--ink-soft);
+    text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px;
+  }
+  .fill { border-bottom: 1.5px solid #cbd5e1; min-height: 20px; padding: 2px 0; }
+
+  h2 {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 16pt;
+    color: var(--navy);
+    margin: 24px 0 8px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid var(--gold);
+    page-break-after: avoid;
+  }
+  h2 .step-num {
+    display: inline-block; width: 26px; height: 26px;
+    background: var(--gold); color: var(--navy);
+    border-radius: 50%; text-align: center; line-height: 26px;
+    font-family: "Inter", sans-serif;
+    font-weight: 800; font-size: 12pt;
+    margin-right: 10px; vertical-align: middle;
+  }
+  h2 .duration {
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    color: var(--ink-soft);
+    font-size: 9.5pt;
+    margin-left: 10px;
+  }
+  h3 {
+    font-size: 10.5pt; margin: 12px 0 6px;
+    color: var(--navy); font-weight: 700;
+  }
+
+  ul.checks { list-style: none; padding-left: 0; margin: 4px 0 8px; }
+  ul.checks li {
+    padding-left: 22px; position: relative; margin: 4px 0;
+    page-break-inside: avoid;
+  }
+  ul.checks li::before {
+    content: ""; position: absolute; left: 0; top: 4px;
+    width: 13px; height: 13px;
+    border: 1.8px solid var(--navy); border-radius: 3px;
+    background: #fff;
+  }
+
+  .say-box {
+    background: var(--paper-soft);
+    border-left: 4px solid var(--gold);
+    padding: 12px 16px;
+    margin: 6px 0 10px;
+    font-style: italic;
+    color: var(--ink);
+    border-radius: 0 6px 6px 0;
+    page-break-inside: avoid;
+    box-shadow: var(--shadow);
+  }
+  .say-box::before {
+    content: "SAY:";
+    display: block;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 8.5pt;
+    color: var(--gold);
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+  body[data-lang="lt"] .say-box::before { content: "SAKYK:"; }
+  body[data-lang="uk"] .say-box::before { content: "КАЖІТЬ:"; }
+  body[data-lang="ru"] .say-box::before { content: "ГОВОРИТЕ:"; }
+  body[data-lang="pl"] .say-box::before { content: "MÓW:"; }
+  body[data-lang="es"] .say-box::before { content: "DIGA:"; }
+
+  .ask-box {
+    background: #eef4fb;
+    border-left: 4px solid var(--navy);
+    padding: 12px 16px;
+    margin: 6px 0 10px;
+    color: var(--ink);
+    border-radius: 0 6px 6px 0;
+    page-break-inside: avoid;
+    box-shadow: var(--shadow);
+  }
+  .ask-box::before {
+    content: "ASK:";
+    display: block;
+    font-weight: 800;
+    font-size: 8.5pt;
+    color: var(--navy);
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+  body[data-lang="lt"] .ask-box::before { content: "KLAUSK:"; }
+  body[data-lang="uk"] .ask-box::before { content: "ЗАПИТАЙТЕ:"; }
+  body[data-lang="ru"] .ask-box::before { content: "СПРОСИТЕ:"; }
+  body[data-lang="pl"] .ask-box::before { content: "ZAPYTAJ:"; }
+  body[data-lang="es"] .ask-box::before { content: "PREGUNTE:"; }
+
+  .listen-box {
+    background: #ecfdf5;
+    border-left: 4px solid #059669;
+    padding: 10px 14px;
+    margin: 6px 0 10px;
+    color: #065f46;
+    font-size: 9.5pt;
+    border-radius: 0 6px 6px 0;
+  }
+  .listen-box::before {
+    content: "LISTEN FOR:";
+    display: block;
+    font-weight: 800;
+    font-size: 8.5pt;
+    color: #059669;
+    letter-spacing: 1px;
+    margin-bottom: 3px;
+  }
+  body[data-lang="lt"] .listen-box::before { content: "KLAUSYK:"; }
+  body[data-lang="uk"] .listen-box::before { content: "СЛУХАЙТЕ:"; }
+  body[data-lang="ru"] .listen-box::before { content: "СЛУШАЙТЕ:"; }
+  body[data-lang="pl"] .listen-box::before { content: "SŁUCHAJ:"; }
+  body[data-lang="es"] .listen-box::before { content: "ESCUCHE:"; }
+
+  .note-box {
+    background: var(--gold-soft);
+    border-left: 4px solid var(--gold);
+    padding: 10px 14px;
+    margin: 8px 0;
+    font-size: 9.5pt;
+    border-radius: 0 6px 6px 0;
+  }
+  .note-box strong { color: var(--navy); }
+
+  .branch-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 8px 0 12px;
+  }
+  .branch-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 12px 14px;
+    box-shadow: var(--shadow);
+    page-break-inside: avoid;
+  }
+  .branch-card h4 {
+    margin: 0 0 6px;
+    font-size: 10pt;
+    color: var(--navy);
+    font-weight: 700;
+    padding-bottom: 4px;
+    border-bottom: 1.5px solid var(--gold);
+  }
+  .branch-card .say-mini {
+    font-style: italic;
+    font-size: 9pt;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+  .branch-card .say-mini::before {
+    content: "SAY:";
+    display: block;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 7.5pt;
+    color: var(--gold);
+    letter-spacing: 0.8px;
+    margin-bottom: 3px;
+  }
+  body[data-lang="lt"] .branch-card .say-mini::before { content: "SAKYK:"; }
+  body[data-lang="uk"] .branch-card .say-mini::before { content: "КАЖІТЬ:"; }
+  body[data-lang="ru"] .branch-card .say-mini::before { content: "ГОВОРИТЕ:"; }
+  body[data-lang="pl"] .branch-card .say-mini::before { content: "MÓW:"; }
+  body[data-lang="es"] .branch-card .say-mini::before { content: "DIGA:"; }
+
+  .objection-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 8px 0;
+  }
+  .objection-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 12px 14px;
+    page-break-inside: avoid;
+    box-shadow: var(--shadow);
+  }
+  .objection-card h4 {
+    margin: 0 0 5px;
+    font-size: 10pt;
+    color: #b91c1c;
+    font-weight: 700;
+  }
+  .objection-card .reframe {
+    font-style: italic;
+    font-size: 9.5pt;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+  .objection-card .reframe::before {
+    content: "REFRAME:";
+    display: block;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 7.5pt;
+    color: #059669;
+    letter-spacing: 0.8px;
+    margin-bottom: 3px;
+  }
+  body[data-lang="lt"] .objection-card .reframe::before { content: "PERFRAZUOK:"; }
+  body[data-lang="uk"] .objection-card .reframe::before { content: "ПЕРЕФОРМУЛЮЙТЕ:"; }
+  body[data-lang="ru"] .objection-card .reframe::before { content: "ПЕРЕФОРМУЛИРУЙТЕ:"; }
+  body[data-lang="pl"] .objection-card .reframe::before { content: "PRZEFORMUŁUJ:"; }
+  body[data-lang="es"] .objection-card .reframe::before { content: "REPLANTEE:"; }
+
+  footer {
+    margin-top: 22px; padding-top: 12px;
+    border-top: 1px solid var(--line);
+    font-size: 8.5pt; color: var(--ink-soft);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  footer .brand {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    color: var(--gold);
+    font-size: 10pt;
+  }
+  .page-break { page-break-before: always; }
+
+  @media print {
+    body { background: #fff; padding: 0; max-width: none; }
+    .no-print, .lang-switcher { display: none !important; }
+    .hero, .say-box, .ask-box, .listen-box, .note-box, h2 .step-num,
+    .branch-card, .objection-card, .meta-card {
+      -webkit-print-color-adjust: exact; print-color-adjust: exact;
+    }
+  }
+  .print-bar {
+    background: var(--navy); color: #fff; padding: 10px 16px;
+    border-radius: 10px; margin: 0 0 14px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 9.5pt;
+    box-shadow: var(--shadow-lg);
+  }
+  .print-bar button {
+    background: var(--gold); color: var(--navy); border: none;
+    padding: 7px 16px; font-weight: 700; cursor: pointer;
+    border-radius: 6px; font-size: 9.5pt;
+  }
+</style>
+</head>
+<body data-lang="en">
+
+<div class="print-bar no-print">
+  <span>
+    <span class="li li-en">Phone invitation script · 6 languages · fillable · ~3–5 min per call</span>
+    <span class="li li-lt">Telefoninio kvietimo scenarijus · 6 kalbos · pildomas · ~3–5 min skambučiui</span>
+    <span class="li li-uk">Сценарій телефонного запрошення · 6 мов · заповнюваний · ~3–5 хв на дзвінок</span>
+    <span class="li li-ru">Сценарий телефонного приглашения · 6 языков · заполняемый · ~3–5 мин на звонок</span>
+    <span class="li li-pl">Skrypt zaproszenia telefonicznego · 6 języków · wypełnialny · ~3–5 min na rozmowę</span>
+    <span class="li li-es">Guion de invitación telefónica · 6 idiomas · rellenable · ~3–5 min por llamada</span>
+  </span>
+  <button onclick="window.print()">
+    <span class="li li-en">Print / Save PDF</span>
+    <span class="li li-lt">Spausdinti / Išsaugoti PDF</span>
+    <span class="li li-uk">Друк / Зберегти PDF</span>
+    <span class="li li-ru">Печать / Сохранить PDF</span>
+    <span class="li li-pl">Drukuj / Zapisz PDF</span>
+    <span class="li li-es">Imprimir / Guardar PDF</span>
+  </button>
+</div>
+
+<div class="lang-switcher no-print">
+  <span class="label">
+    <span class="li li-en">Language:</span>
+    <span class="li li-lt">Kalba:</span>
+    <span class="li li-uk">Мова:</span>
+    <span class="li li-ru">Язык:</span>
+    <span class="li li-pl">Język:</span>
+    <span class="li li-es">Idioma:</span>
+  </span>
+  <button data-l="en" class="active">EN</button>
+  <button data-l="lt">LT</button>
+  <button data-l="uk">UA</button>
+  <button data-l="ru">RU</button>
+  <button data-l="pl">PL</button>
+  <button data-l="es">ESP</button>
+</div>
+
+<div class="hero">
+  <div class="eyebrow">Living Benefits Team · Goodwill Financial</div>
+  <h1>
+    <span class="li li-en">Phone Invitation Script</span>
+    <span class="li li-lt">Telefoninio kvietimo scenarijus</span>
+    <span class="li li-uk">Сценарій телефонного запрошення</span>
+    <span class="li li-ru">Сценарий телефонного приглашения</span>
+    <span class="li li-pl">Skrypt zaproszenia telefonicznego</span>
+    <span class="li li-es">Guion de invitación telefónica</span>
+  </h1>
+  <div class="tagline">
+    <span class="li li-en">"Protect today, prepare for tomorrow."</span>
+    <span class="li li-lt">„Apsaugoti šiandien, pasiruošti rytojui."</span>
+    <span class="li li-uk">«Захистити сьогодні, підготуватися до завтра.»</span>
+    <span class="li li-ru">«Защитить сегодня, подготовиться к завтра.»</span>
+    <span class="li li-pl">„Chronić dziś, przygotować się na jutro."</span>
+    <span class="li li-es">«Proteger hoy, prepararse para mañana.»</span>
+  </div>
+  <div class="sub">
+    <span class="li li-en">Goal: book a 30-minute Discovery appointment. 3–5 minutes per call.</span>
+    <span class="li li-lt">Tikslas: paskirti 30 minučių pažintinį susitikimą. 3–5 minutės skambučiui.</span>
+    <span class="li li-uk">Мета: призначити 30-хвилинну ознайомчу зустріч. 3–5 хвилин на дзвінок.</span>
+    <span class="li li-ru">Цель: назначить 30-минутную ознакомительную встречу. 3–5 минут на звонок.</span>
+    <span class="li li-pl">Cel: umówić 30-minutowe spotkanie wstępne. 3–5 minut na rozmowę.</span>
+    <span class="li li-es">Objetivo: agendar una cita de descubrimiento de 30 minutos. 3–5 minutos por llamada.</span>
+  </div>
+</div>
+
+<div class="meta-card">
+  <div class="meta-grid">
+    <div class="meta-cell"><div class="label"><span class="li li-en">Prospect name</span><span class="li li-lt">Potencialaus kliento vardas</span><span class="li li-uk">Ім'я потенційного клієнта</span><span class="li li-ru">Имя клиента</span><span class="li li-pl">Imię potencjalnego klienta</span><span class="li li-es">Nombre del prospecto</span></div><div class="fill"></div></div>
+    <div class="meta-cell"><div class="label"><span class="li li-en">Source</span><span class="li li-lt">Šaltinis</span><span class="li li-uk">Джерело</span><span class="li li-ru">Источник</span><span class="li li-pl">Źródło</span><span class="li li-es">Fuente</span></div><div class="fill"></div></div>
+    <div class="meta-cell"><div class="label"><span class="li li-en">Date / time of call</span><span class="li li-lt">Skambučio data / laikas</span><span class="li li-uk">Дата / час дзвінка</span><span class="li li-ru">Дата / время звонка</span><span class="li li-pl">Data / godzina rozmowy</span><span class="li li-es">Fecha / hora de la llamada</span></div><div class="fill"></div></div>
+    <div class="meta-cell"><div class="label"><span class="li li-en">Agent</span><span class="li li-lt">Agentas</span><span class="li li-uk">Агент</span><span class="li li-ru">Агент</span><span class="li li-pl">Agent</span><span class="li li-es">Agente</span></div><div class="fill"></div></div>
+    <div class="meta-cell"><div class="label"><span class="li li-en">Their language</span><span class="li li-lt">Kliento kalba</span><span class="li li-uk">Мова клієнта</span><span class="li li-ru">Язык клиента</span><span class="li li-pl">Język klienta</span><span class="li li-es">Idioma del cliente</span></div><div class="fill"></div></div>
+    <div class="meta-cell"><div class="label"><span class="li li-en">Best callback time</span><span class="li li-lt">Geriausias laikas perskambinti</span><span class="li li-uk">Найкращий час для передзвону</span><span class="li li-ru">Лучшее время для перезвона</span><span class="li li-pl">Najlepszy czas na oddzwonienie</span><span class="li li-es">Mejor hora para devolver la llamada</span></div><div class="fill"></div></div>
+  </div>
+</div>
+
+<div class="note-box">
+  <div class="l l-en"><strong>Before you dial:</strong> Look at their Keap record. Check for prior notes, P&amp;C policies, family info, last contact. Have your calendar open. Smile — they hear it.</div>
+  <div class="l l-lt"><strong>Prieš skambindamas:</strong> Peržiūrėk jų Keap kortelę. Patikrink ankstesnes pastabas, P&amp;C polisus, šeimos info, paskutinį kontaktą. Turėk atvirą kalendorių. Šypsokis — tai girdėti.</div>
+  <div class="l l-uk"><strong>Перед дзвінком:</strong> Подивіться їхню картку в Keap. Перевірте попередні нотатки, поліси P&amp;C, інформацію про родину, останній контакт. Тримайте календар відкритим. Усміхніться — це чути.</div>
+  <div class="l l-ru"><strong>Перед звонком:</strong> Откройте карточку клиента в Keap. Проверьте прежние заметки, полисы P&amp;C, информацию о семье, последний контакт. Держите календарь открытым. Улыбнитесь — это слышно.</div>
+  <div class="l l-pl"><strong>Przed wybraniem numeru:</strong> Spójrz na kartę klienta w Keap. Sprawdź wcześniejsze notatki, polisy P&amp;C, info o rodzinie, ostatni kontakt. Miej otwarty kalendarz. Uśmiechnij się — to słychać.</div>
+  <div class="l l-es"><strong>Antes de marcar:</strong> Revise su registro en Keap. Verifique notas previas, pólizas P&amp;C, info familiar, último contacto. Tenga su calendario abierto. Sonría — se nota.</div>
+</div>
+
+<h2><span class="step-num">1</span>
+  <span class="li li-en">Opening &amp; Permission</span><span class="li li-lt">Pradžia ir leidimas</span><span class="li li-uk">Початок і дозвіл</span><span class="li li-ru">Приветствие и разрешение</span><span class="li li-pl">Otwarcie i zgoda</span><span class="li li-es">Apertura y permiso</span>
+  <span class="duration"><span class="li li-en">— 15 seconds</span><span class="li li-lt">— 15 sekundžių</span><span class="li li-uk">— 15 секунд</span><span class="li li-ru">— 15 секунд</span><span class="li li-pl">— 15 sekund</span><span class="li li-es">— 15 segundos</span></span></h2>
+<ul class="checks">
+  <li><span class="li li-en">Use their name. Smile while you speak.</span><span class="li li-lt">Naudok jų vardą. Šypsokis kalbėdamas.</span><span class="li li-uk">Називайте їх по імені. Усміхайтеся, коли говорите.</span><span class="li li-ru">Называйте клиента по имени. Улыбайтесь во время разговора.</span><span class="li li-pl">Używaj imienia. Uśmiechaj się, gdy mówisz.</span><span class="li li-es">Use su nombre. Sonría mientras habla.</span></li>
+  <li><span class="li li-en">Identify yourself + Goodwill Financial</span><span class="li li-lt">Prisistatyk + Goodwill Financial</span><span class="li li-uk">Представтеся + Goodwill Financial</span><span class="li li-ru">Представьтесь + Goodwill Financial</span><span class="li li-pl">Przedstaw się + Goodwill Financial</span><span class="li li-es">Preséntese + Goodwill Financial</span></li>
+  <li><span class="li li-en">State up front this will take 60 seconds</span><span class="li li-lt">Iš karto pasakyk, kad tai užtruks 60 sekundžių</span><span class="li li-uk">Одразу скажіть, що це займе 60 секунд</span><span class="li li-ru">Сразу скажите, что это займёт 60 секунд</span><span class="li li-pl">Od razu powiedz, że to zajmie 60 sekund</span><span class="li li-es">Diga de inmediato que esto tomará 60 segundos</span></li>
+  <li><span class="li li-en">Ask permission to keep going</span><span class="li li-lt">Paklausk leidimo tęsti</span><span class="li li-uk">Запитайте дозволу продовжити</span><span class="li li-ru">Спросите разрешение продолжить</span><span class="li li-pl">Poproś o zgodę na kontynuację</span><span class="li li-es">Pida permiso para continuar</span></li>
+</ul>
+<div class="say-box">
+  <div class="l l-en">Hi [Prospect first name], this is [Agent] with <strong>Goodwill Financial</strong>. I know I'm catching you out of the blue — do you have 60 seconds for me to explain why I'm calling? If now's bad I'm happy to call back.</div>
+  <div class="l l-lt">Sveiki [Vardas], čia [Agentas] iš <strong>Goodwill Financial</strong>. Žinau, kad skambinu netikėtai — ar turite 60 sekundžių, kad galėčiau paaiškinti, kodėl skambinu? Jei dabar netinka, mielai perskambinsiu.</div>
+  <div class="l l-uk">Вітаю, [Ім'я], це [Агент] з компанії <strong>Goodwill Financial</strong>. Знаю, що дзвоню несподівано — чи маєте 60 секунд, щоб я пояснив, чому дзвоню? Якщо зараз не зручно — залюбки передзвоню.</div>
+  <div class="l l-ru">Здравствуйте, [Имя], это [Агент] из компании <strong>Goodwill Financial</strong>. Понимаю, что звоню неожиданно — есть ли у вас 60 секунд, чтобы я объяснил, почему звоню? Если сейчас неудобно — с удовольствием перезвоню.</div>
+  <div class="l l-pl">Dzień dobry, [Imię], tu [Agent] z <strong>Goodwill Financial</strong>. Wiem, że dzwonię nieoczekiwanie — ma Pan/Pani 60 sekund, żebym wyjaśnił, dlaczego dzwonię? Jeśli teraz nie pasuje, chętnie zadzwonię później.</div>
+  <div class="l l-es">Hola, [Nombre], soy [Agente] de <strong>Goodwill Financial</strong>. Sé que llamo de la nada — ¿tiene 60 segundos para que le explique por qué llamo? Si ahora no es buen momento, con gusto le llamo más tarde.</div>
+</div>
+<div class="listen-box">
+  <div class="l l-en">"Yes" → continue. "Not right now" → ask when's better, book a callback, log it. <strong>Don't push past a "no now."</strong></div>
+  <div class="l l-lt">"Taip" → tęsk. "Ne dabar" → klausk kada geriau, suplanuok perskambinimą, įsidėk. <strong>Nespausk po "ne dabar".</strong></div>
+  <div class="l l-uk">"Так" → продовжуй. "Не зараз" → запитай коли краще, запиши передзвін, занотуй. <strong>Не тисни після "не зараз".</strong></div>
+  <div class="l l-ru">"Да" → продолжай. "Не сейчас" → спроси когда лучше, запиши перезвон, занеси. <strong>Не дави после "не сейчас".</strong></div>
+  <div class="l l-pl">"Tak" → kontynuuj. "Nie teraz" → spytaj kiedy lepiej, zaplanuj oddzwonienie, zapisz. <strong>Nie naciskaj po "nie teraz".</strong></div>
+  <div class="l l-es">"Sí" → continúa. "Ahora no" → pregunta cuándo mejor, agenda devolución, regístralo. <strong>No insistas después de un "ahora no".</strong></div>
+</div>
+
+<h2><span class="step-num">2</span>
+  <span class="li li-en">Reason for the call</span><span class="li li-lt">Skambučio priežastis</span><span class="li li-uk">Причина дзвінка</span><span class="li li-ru">Причина звонка</span><span class="li li-pl">Powód rozmowy</span><span class="li li-es">Motivo de la llamada</span>
+  <span class="duration"><span class="li li-en">— 30 seconds · pick branch</span><span class="li li-lt">— 30 sekundžių · pasirink variantą</span><span class="li li-uk">— 30 секунд · оберіть варіант</span><span class="li li-ru">— 30 секунд · выберите вариант</span><span class="li li-pl">— 30 sekund · wybierz wariant</span><span class="li li-es">— 30 segundos · elija la rama</span></span></h2>
+<p style="font-size: 9.5pt; color: var(--ink-soft); margin: 4px 0 6px;">
+  <span class="li li-en">Pick the branch that matches how you got this prospect. <strong>Use their name.</strong></span>
+  <span class="li li-lt">Pasirink variantą pagal tai, kaip gavai šį kontaktą. <strong>Naudok jų vardą.</strong></span>
+  <span class="li li-uk">Оберіть варіант відповідно до того, як ви отримали цей контакт. <strong>Називайте їх по імені.</strong></span>
+  <span class="li li-ru">Выберите вариант, соответствующий тому, как вы получили этот контакт. <strong>Называйте клиента по имени.</strong></span>
+  <span class="li li-pl">Wybierz wariant pasujący do tego, jak zdobyłeś ten kontakt. <strong>Używaj imienia.</strong></span>
+  <span class="li li-es">Elija la rama según cómo obtuvo este prospecto. <strong>Use su nombre.</strong></span>
+</p>
+
+<div class="branch-grid">
+  <div class="branch-card">
+    <h4><span class="li li-en">Warm market</span><span class="li li-lt">Šiltas kontaktas</span><span class="li li-uk">Теплий ринок</span><span class="li li-ru">Тёплый рынок</span><span class="li li-pl">Ciepły rynek</span><span class="li li-es">Mercado cálido</span></h4>
+    <div class="say-mini">
+      <div class="l l-en">I've been thinking about who else I should help, and you came to mind. I work with families on protecting their income and planning their retirement, and I wanted to bring this to you specifically.</div>
+      <div class="l l-lt">Galvojau, kam dar galėčiau padėti, ir prisiminiau jus. Dirbu su šeimomis, padedu apsaugoti pajamas ir planuoti pensiją — norėjau ir jums tai paminėti.</div>
+      <div class="l l-uk">Думав, кому ще можу допомогти, і згадав про вас. Працюю з родинами над захистом доходу та плануванням пенсії — хотів запропонувати і вам.</div>
+      <div class="l l-ru">Думал, кому ещё могу помочь, и вспомнил о вас. Работаю с семьями над защитой дохода и планированием пенсии — хотел предложить и вам.</div>
+      <div class="l l-pl">Myślałem, komu jeszcze mogę pomóc, i przypomniał mi się Pan/Pani. Pracuję z rodzinami nad ochroną dochodu i planowaniem emerytury — chciałem zaproponować to też Panu/Pani.</div>
+      <div class="l l-es">Estaba pensando a quién más puedo ayudar, y usted vino a mi mente. Trabajo con familias protegiendo su ingreso y planeando su retiro, y quería traerle esto a usted específicamente.</div>
+    </div>
+  </div>
+  <div class="branch-card">
+    <h4><span class="li li-en">Referral</span><span class="li li-lt">Rekomendacija</span><span class="li li-uk">Рекомендація</span><span class="li li-ru">Рекомендация</span><span class="li li-pl">Polecenie</span><span class="li li-es">Referido</span></h4>
+    <div class="say-mini">
+      <div class="l l-en">[Referrer name] gave me your number — they thought what I do might be valuable for you too. They didn't tell you why? Let me explain in 30 seconds.</div>
+      <div class="l l-lt">[Rekomendavusio vardas] davė man jūsų numerį — pagalvojo, kad tai, ką aš darau, gali būti vertinga ir jums. Jis (-i) nepasakė kodėl? Leiskite trumpai paaiškinti.</div>
+      <div class="l l-uk">[Ім'я того, хто рекомендував] дав/-ла мені ваш номер — подумав/-ла, що те, чим я займаюся, може бути корисним і вам. Не сказав/-ла чому? Дозвольте пояснити за 30 секунд.</div>
+      <div class="l l-ru">[Имя рекомендующего] дал/-а мне ваш номер — посчитал/-а, что то, чем я занимаюсь, может быть полезно и вам. Не сказал/-а почему? Позвольте объяснить за 30 секунд.</div>
+      <div class="l l-pl">[Imię polecającego] dał/-a mi Pana/Pani numer — pomyślał/-a, że to, co robię, może być wartościowe również dla Pana/Pani. Nie powiedział/-a dlaczego? Pozwoli Pan/Pani wyjaśnić w 30 sekund.</div>
+      <div class="l l-es">[Nombre del referente] me dio su número — pensó que lo que hago podría ser valioso también para usted. ¿No le dijo por qué? Déjeme explicarle en 30 segundos.</div>
+    </div>
+  </div>
+  <div class="branch-card">
+    <h4><span class="li li-en">P&amp;C cross-sell</span><span class="li li-lt">P&amp;C kryžminis pardavimas</span><span class="li li-uk">Крос-продаж P&amp;C</span><span class="li li-ru">Кросс-продажа P&amp;C</span><span class="li li-pl">Sprzedaż krzyżowa P&amp;C</span><span class="li li-es">Venta cruzada P&amp;C</span></h4>
+    <div class="say-mini">
+      <div class="l l-en">You already have [auto/home] with us through [Sigita/our team]. I work the other side of Goodwill — life insurance and retirement planning — and I help our existing clients close gaps they don't always know they have.</div>
+      <div class="l l-lt">Jūs jau turite [auto / namų draudimą] pas mus per [Sigita / mūsų komandą]. Aš dirbu kitoje Goodwill pusėje — gyvybės draudimas ir pensijos planavimas — padedu esamiems klientams uždaryti spragas, kurių jie kartais nepastebi.</div>
+      <div class="l l-uk">Ви вже маєте у нас [авто / страхування дому] через [Sigita / нашу команду]. Я працюю з іншого боку Goodwill — страхування життя та планування пенсії — допомагаю клієнтам закривати прогалини, яких вони часто не помічають.</div>
+      <div class="l l-ru">У вас уже есть у нас [авто / дом] через [Sigita / нашу команду]. Я работаю на другой стороне Goodwill — страхование жизни и планирование пенсии — помогаю клиентам закрывать пробелы, которых они часто не замечают.</div>
+      <div class="l l-pl">Ma Pan/Pani już u nas [auto / dom] przez [Sigita / nasz zespół]. Pracuję po drugiej stronie Goodwill — ubezpieczenie na życie i planowanie emerytury — pomagam klientom zamykać luki, których często nie widzą.</div>
+      <div class="l l-es">Ya tiene [auto/casa] con nosotros a través de [Sigita / nuestro equipo]. Yo trabajo el otro lado de Goodwill — seguro de vida y planificación de retiro — y ayudo a nuestros clientes actuales a cerrar brechas que no siempre saben que tienen.</div>
+    </div>
+  </div>
+</div>
+
+<h2><span class="step-num">3</span>
+  <span class="li li-en">The Goodwill value setup</span><span class="li li-lt">Goodwill vertės pristatymas</span><span class="li li-uk">Презентація цінності Goodwill</span><span class="li li-ru">Презентация ценности Goodwill</span><span class="li li-pl">Prezentacja wartości Goodwill</span><span class="li li-es">La propuesta de valor de Goodwill</span>
+  <span class="duration"><span class="li li-en">— 30 seconds</span><span class="li li-lt">— 30 sekundžių</span><span class="li li-uk">— 30 секунд</span><span class="li li-ru">— 30 секунд</span><span class="li li-pl">— 30 sekund</span><span class="li li-es">— 30 segundos</span></span></h2>
+<p style="font-size: 9.5pt; color: var(--ink-soft); margin: 4px 0 6px;">
+  <span class="li li-en">Brief, compelling, no jargon. Same for every prospect.</span>
+  <span class="li li-lt">Trumpai, įtikinamai, be žargono. Vienodai kiekvienam.</span>
+  <span class="li li-uk">Коротко, переконливо, без жаргону. Однаково для кожного.</span>
+  <span class="li li-ru">Кратко, убедительно, без жаргона. Одинаково для каждого.</span>
+  <span class="li li-pl">Krótko, przekonująco, bez żargonu. Tak samo dla każdego.</span>
+  <span class="li li-es">Breve, convincente, sin jerga. Igual para cada prospecto.</span>
+</p>
+<div class="say-box">
+  <div class="l l-en">At Goodwill our purpose is simple — <strong>Protect today, prepare for tomorrow</strong>. Most people think life insurance only pays when someone dies. There's a modern version called <strong>Living Benefits</strong> that may also let you access part of it while you're still alive if something serious happens — heart attack, cancer, stroke. And the same dollars can build cash value for retirement. Three jobs from one tool. That's the conversation I want to have with you.</div>
+  <div class="l l-lt">Goodwill tikslas paprastas — <strong>Apsaugoti šiandien, pasiruošti rytojui</strong>. Dauguma žmonių galvoja, kad gyvybės draudimas išmokamas tik po mirties. Yra moderni versija — <strong>Living Benefits</strong> — kuri gali leisti gauti dalį išmokos dar gyvenant, jei nutiks kažkas rimto — infarktas, vėžys, insultas. Ir tie patys pinigai gali augti pensijai. Trys darbai vienu įrankiu. Apie tai ir norėčiau su jumis pasikalbėti.</div>
+  <div class="l l-uk">У Goodwill наша мета проста — <strong>Захистити сьогодні, підготуватися до завтра</strong>. Більшість думають, що страхування життя виплачується тільки після смерті. Є сучасна версія — <strong>Living Benefits</strong> — яка може дозволити отримати частину виплати ще за життя, якщо станеться щось серйозне: інфаркт, рак, інсульт. І ті ж самі гроші можуть накопичуватися на пенсію. Три завдання одним інструментом. Саме про це я хочу з вами поговорити.</div>
+  <div class="l l-ru">В Goodwill наша цель проста — <strong>Защитить сегодня, подготовиться к завтра</strong>. Большинство думают, что страхование жизни платит только после смерти. Есть современная версия — <strong>Living Benefits</strong> — которая может позволить получить часть выплаты ещё при жизни, если случится что-то серьёзное: инфаркт, рак, инсульт. И те же деньги могут накапливаться на пенсию. Три задачи одним инструментом. Об этом я и хочу с вами поговорить.</div>
+  <div class="l l-pl">W Goodwill nasz cel jest prosty — <strong>Chronić dziś, przygotować się na jutro</strong>. Większość ludzi myśli, że ubezpieczenie na życie wypłaca tylko po śmierci. Jest nowoczesna wersja — <strong>Living Benefits</strong> — która może pozwolić uzyskać część świadczenia jeszcze za życia, jeśli wydarzy się coś poważnego: zawał, rak, udar. I te same pieniądze mogą rosnąć na emeryturę. Trzy zadania jednym narzędziem. O tym chcę z Panem/Panią porozmawiać.</div>
+  <div class="l l-es">En Goodwill nuestro propósito es simple — <strong>Proteger hoy, prepararse para mañana</strong>. La mayoría piensa que el seguro de vida solo paga cuando alguien muere. Hay una versión moderna llamada <strong>Beneficios en Vida</strong> que puede permitirle acceder a parte del beneficio mientras está vivo si algo serio pasa — infarto, cáncer, derrame. Y el mismo dinero puede construir valor en efectivo para el retiro. Tres trabajos con una sola herramienta. Esa es la conversación que quiero tener con usted.</div>
+</div>
+
+<h2><span class="step-num">4</span>
+  <span class="li li-en">The soft ask</span><span class="li li-lt">Švelnus paprašymas</span><span class="li li-uk">М'яке прохання</span><span class="li li-ru">Мягкая просьба</span><span class="li li-pl">Delikatna prośba</span><span class="li li-es">La petición suave</span>
+  <span class="duration"><span class="li li-en">— 15 seconds</span><span class="li li-lt">— 15 sekundžių</span><span class="li li-uk">— 15 секунд</span><span class="li li-ru">— 15 секунд</span><span class="li li-pl">— 15 sekund</span><span class="li li-es">— 15 segundos</span></span></h2>
+<div class="ask-box">
+  <div class="l l-en">All I'm asking for is <strong>30 minutes</strong>. No commitment, no pressure. If at the end you see how this fits, we keep going. If not, you've at least learned something most people don't know about. Fair?</div>
+  <div class="l l-lt">Prašau tik <strong>30 minučių</strong>. Jokių įsipareigojimų, jokio spaudimo. Jei pabaigoje matysite, kad tai tinka — tęsiame. Jei ne — bent jau sužinosite tai, ko dauguma nežino. Sąžiningai?</div>
+  <div class="l l-uk">Прошу лише <strong>30 хвилин</strong>. Без зобов'язань, без тиску. Якщо в кінці побачите, що це підходить — продовжуємо. Якщо ні — принаймні дізнаєтеся те, чого більшість не знає. Справедливо?</div>
+  <div class="l l-ru">Прошу всего <strong>30 минут</strong>. Никаких обязательств, никакого давления. Если в конце увидите, что подходит — продолжим. Если нет — хотя бы узнаете то, чего большинство не знает. Справедливо?</div>
+  <div class="l l-pl">Proszę tylko o <strong>30 minut</strong>. Bez zobowiązań, bez presji. Jeśli na koniec zobaczy Pan/Pani, że to pasuje — kontynuujemy. Jeśli nie — przynajmniej dowie się Pan/Pani czegoś, czego większość nie wie. Sprawiedliwie?</div>
+  <div class="l l-es">Solo le pido <strong>30 minutos</strong>. Sin compromiso, sin presión. Si al final ve que esto encaja, seguimos. Si no, al menos habrá aprendido algo que la mayoría no sabe. ¿Le parece justo?</div>
+</div>
+
+<div class="page-break"></div>
+
+<h2><span class="step-num">5</span>
+  <span class="li li-en">Handle objections</span><span class="li li-lt">Atsakyk į prieštaravimus</span><span class="li li-uk">Робота із запереченнями</span><span class="li li-ru">Работа с возражениями</span><span class="li li-pl">Obsługa zastrzeżeń</span><span class="li li-es">Manejo de objeciones</span>
+  <span class="duration"><span class="li li-en">— as needed</span><span class="li li-lt">— pagal poreikį</span><span class="li li-uk">— за потреби</span><span class="li li-ru">— по необходимости</span><span class="li li-pl">— w razie potrzeby</span><span class="li li-es">— según sea necesario</span></span></h2>
+<p style="font-size: 9.5pt; color: var(--ink-soft); margin: 4px 0 6px;">
+  <span class="li li-en">Don't argue. Acknowledge → reframe → re-ask for the meeting. Same flow every time.</span>
+  <span class="li li-lt">Nesiginčyk. Pripažink → perfrazuok → vėl paprašyk susitikimo. Visada ta pati seka.</span>
+  <span class="li li-uk">Не сперечайтеся. Визнайте → переформулюйте → знову запропонуйте зустріч. Щоразу однаково.</span>
+  <span class="li li-ru">Не спорьте. Признайте → переформулируйте → снова предложите встречу. Каждый раз одинаково.</span>
+  <span class="li li-pl">Nie kłóć się. Przyznaj → przeformułuj → ponownie zaproponuj spotkanie. Za każdym razem tak samo.</span>
+  <span class="li li-es">No discuta. Reconozca → replantee → vuelva a pedir la reunión. El mismo flujo siempre.</span>
+</p>
+
+<div class="objection-grid">
+  <div class="objection-card">
+    <h4><span class="li li-en">"I already have life insurance"</span><span class="li li-lt">„Aš jau turiu gyvybės draudimą"</span><span class="li li-uk">«У мене вже є страхування життя»</span><span class="li li-ru">«У меня уже есть страхование жизни»</span><span class="li li-pl">„Mam już ubezpieczenie na życie"</span><span class="li li-es">«Ya tengo seguro de vida»</span></h4>
+    <div class="reframe">
+      <div class="l l-en">Great — most of my best clients did too. What I look at is whether yours can pay you while you're <em>alive</em> if you got sick. Most policies can't. 30 minutes to find out — worth it?</div>
+      <div class="l l-lt">Puiku — dauguma mano geriausių klientų irgi turėjo. Tikrinu, ar jūsiškis gali išmokėti jums <em>gyvenant</em>, jei susirgtumėte. Dauguma negali. 30 min., kad sužinotumėte — verta?</div>
+      <div class="l l-uk">Чудово — більшість моїх найкращих клієнтів теж мали. Я перевіряю, чи може ваш виплатити вам <em>за життя</em>, якщо ви захворієте. Більшість не можуть. 30 хвилин, щоб з'ясувати — варто?</div>
+      <div class="l l-ru">Отлично — у большинства моих лучших клиентов тоже было. Я проверяю, может ли ваше выплатить вам <em>при жизни</em>, если заболеете. Большинство не могут. 30 минут, чтобы узнать — стоит того?</div>
+      <div class="l l-pl">Świetnie — większość moich najlepszych klientów też miała. Sprawdzam, czy Pana/Pani polisa może wypłacić <em>za życia</em>, jeśli Pan/Pani zachoruje. Większość nie może. 30 minut, żeby to sprawdzić — warto?</div>
+      <div class="l l-es">Excelente — la mayoría de mis mejores clientes también tenían. Lo que reviso es si la suya puede pagarle mientras está <em>vivo</em> si se enferma. La mayoría no pueden. 30 minutos para averiguarlo — ¿vale la pena?</div>
+    </div>
+  </div>
+  <div class="objection-card">
+    <h4><span class="li li-en">"I'm not interested"</span><span class="li li-lt">„Man neįdomu"</span><span class="li li-uk">«Мені це не цікаво»</span><span class="li li-ru">«Мне это не интересно»</span><span class="li li-pl">„Nie jestem zainteresowany"</span><span class="li li-es">«No me interesa»</span></h4>
+    <div class="reframe">
+      <div class="l l-en">Totally fair — most people aren't, until they hear what's actually possible. Can I send you a 2-minute video instead of a meeting? If you watch and still don't want to talk, no problem.</div>
+      <div class="l l-lt">Visiškai suprantama — daugumai irgi neįdomu, kol neišgirsta, kas iš tikrųjų įmanoma. Galiu vietoj susitikimo atsiųsti 2 min. video? Jei pažiūrėjus vis tiek nenorėsite kalbėti — jokių problemų.</div>
+      <div class="l l-uk">Цілком справедливо — більшість не цікавиться, поки не почує, що насправді можливо. Можу замість зустрічі надіслати 2-хвилинне відео? Якщо подивитеся й все одно не захочете говорити — без проблем.</div>
+      <div class="l l-ru">Совершенно справедливо — большинство не интересуется, пока не услышит, что на самом деле возможно. Могу вместо встречи отправить 2-минутное видео? Если посмотрите и всё равно не захотите говорить — без проблем.</div>
+      <div class="l l-pl">Całkowicie rozumiem — większość nie jest, dopóki nie usłyszy, co faktycznie jest możliwe. Mogę zamiast spotkania wysłać 2-minutowy film? Jeśli obejrzy Pan/Pani i nadal nie zechce rozmawiać — żaden problem.</div>
+      <div class="l l-es">Totalmente justo — la mayoría no lo están, hasta que escuchan lo que realmente es posible. ¿Puedo enviarle un video de 2 minutos en lugar de una reunión? Si lo ve y aun así no quiere hablar, ningún problema.</div>
+    </div>
+  </div>
+  <div class="objection-card">
+    <h4><span class="li li-en">"I don't have time"</span><span class="li li-lt">„Neturiu laiko"</span><span class="li li-uk">«У мене немає часу»</span><span class="li li-ru">«У меня нет времени»</span><span class="li li-pl">„Nie mam czasu"</span><span class="li li-es">«No tengo tiempo»</span></h4>
+    <div class="reframe">
+      <div class="l l-en">Understood — that's why I'm asking for 30 minutes, not 2 hours. We can do it by phone or Zoom — whatever works. What does next week look like for you, mornings or evenings?</div>
+      <div class="l l-lt">Suprantu — todėl ir prašau 30 min., ne 2 val. Galime telefonu arba per Zoom — kaip jums geriau. Kaip atrodo kita savaitė, rytais ar vakarais?</div>
+      <div class="l l-uk">Розумію — тому й прошу 30 хвилин, не 2 години. Можемо телефоном або через Zoom — як вам зручніше. Як виглядає наступний тиждень, ранки чи вечори?</div>
+      <div class="l l-ru">Понимаю — поэтому и прошу 30 минут, не 2 часа. Можем по телефону или через Zoom — как вам удобнее. Как выглядит следующая неделя, утром или вечером?</div>
+      <div class="l l-pl">Rozumiem — dlatego proszę o 30 minut, nie 2 godziny. Możemy przez telefon lub Zoom — jak Panu/Pani pasuje. Jak wygląda przyszły tydzień, ranki czy wieczory?</div>
+      <div class="l l-es">Entiendo — por eso pido 30 minutos, no 2 horas. Lo podemos hacer por teléfono o Zoom — lo que le funcione. ¿Cómo se ve la próxima semana para usted, mañanas o tardes?</div>
+    </div>
+  </div>
+  <div class="objection-card">
+    <h4><span class="li li-en">"How much does it cost?"</span><span class="li li-lt">„Kiek tai kainuoja?"</span><span class="li li-uk">«Скільки це коштує?»</span><span class="li li-ru">«Сколько это стоит?»</span><span class="li li-pl">„Ile to kosztuje?"</span><span class="li li-es">«¿Cuánto cuesta?»</span></h4>
+    <div class="reframe">
+      <div class="l l-en">Honestly, I don't know yet — and neither do you. It depends on your age, health, and what you want it to do. The 30 minutes is how we figure that out. No quote until then. Sound fair?</div>
+      <div class="l l-lt">Iš tikrųjų dar nežinau — ir jūs irgi nežinote. Priklauso nuo amžiaus, sveikatos ir ko norite. 30 min. tam, kad išsiaiškintume. Iki tol jokios kvotos. Tinka?</div>
+      <div class="l l-uk">Чесно, ще не знаю — і ви теж. Залежить від віку, здоров'я та того, що хочете. 30 хвилин — щоб це з'ясувати. До того жодних котирувань. Підходить?</div>
+      <div class="l l-ru">Честно, ещё не знаю — и вы тоже. Зависит от возраста, здоровья и того, что вы хотите. 30 минут — чтобы это выяснить. До этого никаких котировок. Подходит?</div>
+      <div class="l l-pl">Szczerze, jeszcze nie wiem — i Pan/Pani też. Zależy od wieku, zdrowia i tego, czego Pan/Pani chce. 30 minut — żeby to ustalić. Do tego czasu żadnej wyceny. Pasuje?</div>
+      <div class="l l-es">Honestamente, todavía no sé — y usted tampoco. Depende de su edad, salud, y qué quiere que haga. Los 30 minutos son para descubrirlo. Sin cotización hasta entonces. ¿Le parece justo?</div>
+    </div>
+  </div>
+  <div class="objection-card">
+    <h4><span class="li li-en">"I need to talk to my spouse"</span><span class="li li-lt">„Turiu pasitarti su sutuoktiniu"</span><span class="li li-uk">«Мені треба порадитися з дружиною/чоловіком»</span><span class="li li-ru">«Мне нужно обсудить с супругом/супругой»</span><span class="li li-pl">„Muszę porozmawiać z małżonkiem"</span><span class="li li-es">«Necesito hablar con mi cónyuge»</span></h4>
+    <div class="reframe">
+      <div class="l l-en">Smart — this is the kind of thing you decide together. That's exactly why I'd want both of you on the meeting. When are you both home for 30 minutes — weekday evening or weekend morning?</div>
+      <div class="l l-lt">Protinga — tai sprendžiama kartu. Kaip tik todėl ir norėčiau, kad būtumėte abu susitikime. Kada abu namuose 30 min. — vakare per savaitę ar savaitgalio rytą?</div>
+      <div class="l l-uk">Розумно — це вирішується разом. Саме тому хотів би, щоб ви обоє були на зустрічі. Коли обоє вдома 30 хвилин — увечері в будній день чи в суботу вранці?</div>
+      <div class="l l-ru">Разумно — это решается вместе. Именно поэтому хотел бы, чтобы вы оба были на встрече. Когда оба дома 30 минут — вечером в будний день или утром в субботу?</div>
+      <div class="l l-pl">Mądrze — to się decyduje wspólnie. Dlatego właśnie chciałbym, żeby oboje byli Państwo na spotkaniu. Kiedy oboje są w domu 30 minut — wieczorem w tygodniu czy w sobotę rano?</div>
+      <div class="l l-es">Inteligente — esto se decide juntos. Por eso quiero a los dos en la reunión. ¿Cuándo están ambos en casa por 30 minutos — entre semana en la noche o sábado en la mañana?</div>
+    </div>
+  </div>
+  <div class="objection-card">
+    <h4><span class="li li-en">"Send me information first"</span><span class="li li-lt">„Pirma atsiųsk informaciją"</span><span class="li li-uk">«Спочатку надішліть інформацію»</span><span class="li li-ru">«Сначала пришлите информацию»</span><span class="li li-pl">„Najpierw wyślij mi informacje"</span><span class="li li-es">«Envíeme información primero»</span></h4>
+    <div class="reframe">
+      <div class="l l-en">I will — happy to send a one-pager. But honestly, the best 30 minutes you'll spend is on the call where I look at <em>your</em> situation specifically. Information is generic. Mine will be about you. Want me to pencil it in?</div>
+      <div class="l l-lt">Atsiųsiu — mielai pasiūlysiu vieną puslapį. Bet sąžiningai, geriausios 30 min. — pokalbis, kuriame pažiūrėsiu būtent į <em>jūsų</em> situaciją. Informacija bendra. O mūsų pokalbis — apie jus. Galiu užrašyti laiką?</div>
+      <div class="l l-uk">Надішлю — із задоволенням. Але чесно, найкращі 30 хвилин — це розмова, де я подивлюся саме на <em>вашу</em> ситуацію. Інформація — загальна. Наша розмова буде про вас. Можу записати час?</div>
+      <div class="l l-ru">Отправлю — с удовольствием. Но честно, лучшие 30 минут — это разговор, где я посмотрю именно на <em>вашу</em> ситуацию. Информация — общая. Наш разговор будет про вас. Могу записать время?</div>
+      <div class="l l-pl">Wyślę — chętnie. Ale szczerze, najlepsze 30 minut to rozmowa, w której spojrzę na <em>Pana/Pani</em> sytuację konkretnie. Informacja jest ogólna. Nasza rozmowa będzie o Panu/Pani. Mogę zapisać termin?</div>
+      <div class="l l-es">Lo haré — con gusto envío una hoja. Pero honestamente, los mejores 30 minutos son la llamada donde miro <em>su</em> situación específicamente. La información es genérica. La mía será sobre usted. ¿Lo agendamos?</div>
+    </div>
+  </div>
+</div>
+
+<h2><span class="step-num">6</span>
+  <span class="li li-en">Confirm the appointment</span><span class="li li-lt">Patvirtink susitikimą</span><span class="li li-uk">Підтвердіть зустріч</span><span class="li li-ru">Подтвердите встречу</span><span class="li li-pl">Potwierdź spotkanie</span><span class="li li-es">Confirme la cita</span>
+  <span class="duration"><span class="li li-en">— 1 minute</span><span class="li li-lt">— 1 minutė</span><span class="li li-uk">— 1 хвилина</span><span class="li li-ru">— 1 минута</span><span class="li li-pl">— 1 minuta</span><span class="li li-es">— 1 minuto</span></span></h2>
+<ul class="checks">
+  <li><span class="li li-en">Offer two specific options (one mid-week, one weekend OR morning + evening)</span><span class="li li-lt">Pasiūlyk du konkrečius variantus (vieną savaitės viduryje, vieną savaitgalį ARBA rytą + vakarą)</span><span class="li li-uk">Запропонуйте два конкретні варіанти (один у середині тижня, один на вихідних АБО ранок + вечір)</span><span class="li li-ru">Предложите два конкретных варианта (один в середине недели, один на выходных ИЛИ утро + вечер)</span><span class="li li-pl">Zaproponuj dwie konkretne opcje (jedną w środku tygodnia, jedną w weekend LUB rano + wieczór)</span><span class="li li-es">Ofrezca dos opciones específicas (una entre semana, una el fin de semana O mañana + noche)</span></li>
+  <li><span class="li li-en">Confirm date, start time, end time, format (in-person / phone / Zoom)</span><span class="li li-lt">Patvirtink datą, pradžios laiką, pabaigos laiką, formatą (gyvai / telefonu / Zoom)</span><span class="li li-uk">Підтвердіть дату, час початку, час завершення, формат (особисто / телефон / Zoom)</span><span class="li li-ru">Подтвердите дату, время начала, время окончания, формат (лично / телефон / Zoom)</span><span class="li li-pl">Potwierdź datę, godzinę rozpoczęcia, godzinę zakończenia, format (osobiście / telefon / Zoom)</span><span class="li li-es">Confirme fecha, hora de inicio, hora de fin, formato (presencial / teléfono / Zoom)</span></li>
+  <li><span class="li li-en">Confirm spouse/partner attendance</span><span class="li li-lt">Patvirtink sutuoktinio/partnerio dalyvavimą</span><span class="li li-uk">Підтвердіть присутність дружини/чоловіка/партнера</span><span class="li li-ru">Подтвердите присутствие супруга/партнёра</span><span class="li li-pl">Potwierdź obecność małżonka/partnera</span><span class="li li-es">Confirme la asistencia del cónyuge/pareja</span></li>
+  <li><span class="li li-en">Get email + cell for the confirmation</span><span class="li li-lt">Paimk el. paštą + mobilųjį patvirtinimui</span><span class="li li-uk">Візьміть email + мобільний для підтвердження</span><span class="li li-ru">Возьмите email + мобильный для подтверждения</span><span class="li li-pl">Weź email + komórkę do potwierdzenia</span><span class="li li-es">Obtenga email + celular para la confirmación</span></li>
+  <li><span class="li li-en">Tell them you'll send a calendar invite AND a confirmation text</span><span class="li li-lt">Pasakyk, kad atsiųsi kalendoriaus kvietimą IR patvirtinimo žinutę</span><span class="li li-uk">Скажіть, що надішлете запрошення в календар І підтверджувальне повідомлення</span><span class="li li-ru">Скажите, что отправите приглашение в календарь И подтверждающее сообщение</span><span class="li li-pl">Powiedz, że wyślesz zaproszenie do kalendarza I wiadomość potwierdzającą</span><span class="li li-es">Dígale que enviará una invitación de calendario Y un mensaje de confirmación</span></li>
+</ul>
+<div class="ask-box">
+  <div class="l l-en">I have <strong>Tuesday at 6:30 PM</strong> or <strong>Saturday at 10 AM</strong> — which works better? … Phone, Zoom, or in person at our office? … Best email and cell for the confirmation?</div>
+  <div class="l l-lt"><strong>Antradienį 18:30</strong> arba <strong>šeštadienį 10 val.</strong> — kuris geriau? … Telefonu, Zoom ar gyvai mūsų biure? … Geriausias el. paštas ir telefonas patvirtinimui?</div>
+  <div class="l l-uk">У мене є <strong>вівторок о 18:30</strong> або <strong>субота о 10:00</strong> — що краще? … Телефон, Zoom чи особисто в офісі? … Найкращий email і мобільний для підтвердження?</div>
+  <div class="l l-ru">У меня есть <strong>вторник в 18:30</strong> или <strong>суббота в 10:00</strong> — что лучше? … Телефон, Zoom или лично в офисе? … Лучший email и мобильный для подтверждения?</div>
+  <div class="l l-pl">Mam <strong>wtorek o 18:30</strong> lub <strong>sobotę o 10:00</strong> — co lepiej? … Telefon, Zoom czy osobiście w biurze? … Najlepszy email i komórka do potwierdzenia?</div>
+  <div class="l l-es">Tengo <strong>martes a las 6:30 PM</strong> o <strong>sábado a las 10 AM</strong> — ¿cuál funciona mejor? … ¿Teléfono, Zoom o en persona en nuestra oficina? … ¿Mejor email y celular para la confirmación?</div>
+</div>
+
+<h2><span class="step-num">7</span>
+  <span class="li li-en">Close warmly</span><span class="li li-lt">Užbaik šiltai</span><span class="li li-uk">Завершіть тепло</span><span class="li li-ru">Тёплое завершение</span><span class="li li-pl">Zakończ ciepło</span><span class="li li-es">Cierre cálidamente</span>
+  <span class="duration"><span class="li li-en">— 20 seconds</span><span class="li li-lt">— 20 sekundžių</span><span class="li li-uk">— 20 секунд</span><span class="li li-ru">— 20 секунд</span><span class="li li-pl">— 20 sekund</span><span class="li li-es">— 20 segundos</span></span></h2>
+<div class="say-box">
+  <div class="l l-en">Perfect — I have you down for <strong>[day, date, time, format]</strong>. I'll send the calendar invite and a confirmation text in the next few minutes. <strong>You don't need to prepare anything.</strong> Just bring any questions you have. Talk soon — and again, our job is simple: <em>Protect today, prepare for tomorrow</em>.</div>
+  <div class="l l-lt">Puiku — užrašiau jus <strong>[diena, data, laikas, formatas]</strong>. Per kelias minutes atsiųsiu kalendoriaus kvietimą ir patvirtinimo žinutę. <strong>Jums nereikia nieko ruošti.</strong> Tiesiog atsineškite klausimus. Pasimatysime — ir dar kartą, mūsų darbas paprastas: <em>Apsaugoti šiandien, pasiruošti rytojui</em>.</div>
+  <div class="l l-uk">Чудово — записав вас на <strong>[день, дата, час, формат]</strong>. За кілька хвилин надішлю запрошення в календар і повідомлення про підтвердження. <strong>Готуватися нічого не треба.</strong> Просто принесіть свої запитання. До зустрічі — і ще раз, наша робота проста: <em>Захистити сьогодні, підготуватися до завтра</em>.</div>
+  <div class="l l-ru">Отлично — записал вас на <strong>[день, дата, время, формат]</strong>. Через несколько минут пришлю приглашение в календарь и подтверждающее сообщение. <strong>Готовиться ничего не надо.</strong> Просто принесите свои вопросы. До встречи — и ещё раз, наша работа проста: <em>Защитить сегодня, подготовиться к завтра</em>.</div>
+  <div class="l l-pl">Świetnie — zapisałem Pana/Panią na <strong>[dzień, data, godzina, format]</strong>. Za kilka minut wyślę zaproszenie do kalendarza i wiadomość potwierdzającą. <strong>Nie trzeba się do niczego przygotowywać.</strong> Po prostu proszę przynieść swoje pytania. Do zobaczenia — i jeszcze raz, nasza praca jest prosta: <em>Chronić dziś, przygotować się na jutro</em>.</div>
+  <div class="l l-es">Perfecto — lo tengo agendado para <strong>[día, fecha, hora, formato]</strong>. En los próximos minutos le enviaré la invitación de calendario y un mensaje de confirmación. <strong>No necesita preparar nada.</strong> Solo traiga sus preguntas. Hablamos pronto — y de nuevo, nuestro trabajo es simple: <em>Proteger hoy, prepararse para mañana</em>.</div>
+</div>
+
+<h2>
+  <span class="li li-en">Post-call checklist</span><span class="li li-lt">Kontrolinis sąrašas po skambučio</span><span class="li li-uk">Чек-лист після дзвінка</span><span class="li li-ru">Чек-лист после звонка</span><span class="li li-pl">Lista po rozmowie</span><span class="li li-es">Lista de verificación post-llamada</span>
+  <span class="duration"><span class="li li-en">— within 5 minutes</span><span class="li li-lt">— per 5 minutes</span><span class="li li-uk">— протягом 5 хвилин</span><span class="li li-ru">— в течение 5 минут</span><span class="li li-pl">— w ciągu 5 minut</span><span class="li li-es">— dentro de 5 minutos</span></span></h2>
+<ul class="checks">
+  <li><span class="li li-en">Log call + outcome in Keap (note their language preference)</span><span class="li li-lt">Įrašyk skambutį + rezultatą į Keap (pažymėk kalbos preferenciją)</span><span class="li li-uk">Запишіть дзвінок + результат у Keap (зазначте мову клієнта)</span><span class="li li-ru">Запишите звонок + результат в Keap (отметьте предпочтительный язык)</span><span class="li li-pl">Zapisz rozmowę + wynik w Keap (zaznacz preferowany język)</span><span class="li li-es">Registre la llamada + resultado en Keap (anote su idioma preferido)</span></li>
+  <li><span class="li li-en">Send calendar invite from your Calendly with Zoom link / address</span><span class="li li-lt">Atsiųsk kalendoriaus kvietimą iš Calendly su Zoom nuoroda / adresu</span><span class="li li-uk">Надішліть запрошення в календар із Calendly з посиланням Zoom / адресою</span><span class="li li-ru">Отправьте приглашение в календарь из Calendly со ссылкой Zoom / адресом</span><span class="li li-pl">Wyślij zaproszenie do kalendarza z Calendly z linkiem Zoom / adresem</span><span class="li li-es">Envíe la invitación de calendario desde Calendly con enlace de Zoom / dirección</span></li>
+  <li><span class="li li-en">Send confirmation text: "Hi [name], confirming our 30-min Living Benefits chat [day/time]. Save this number — text me if anything changes. — [Agent], Goodwill Financial"</span><span class="li li-lt">Atsiųsk patvirtinimo žinutę: „Sveiki [vardas], patvirtinu mūsų 30 min. Living Benefits pokalbį [diena/laikas]. Išsaugok šį numerį — parašyk, jei kas pasikeis. — [Agentas], Goodwill Financial"</span><span class="li li-uk">Надішліть підтверджувальне повідомлення: «Вітаю, [ім'я], підтверджую нашу 30-хв розмову про Living Benefits [день/час]. Збережіть цей номер — напишіть, якщо щось зміниться. — [Агент], Goodwill Financial»</span><span class="li li-ru">Отправьте подтверждающее сообщение: «Здравствуйте, [имя], подтверждаю наш 30-мин разговор о Living Benefits [день/время]. Сохраните этот номер — напишите, если что-то изменится. — [Агент], Goodwill Financial»</span><span class="li li-pl">Wyślij wiadomość potwierdzającą: „Dzień dobry [imię], potwierdzam naszą 30-min rozmowę o Living Benefits [dzień/godzina]. Zapisz ten numer — napisz, jeśli coś się zmieni. — [Agent], Goodwill Financial"</span><span class="li li-es">Envíe mensaje de confirmación: «Hola [nombre], confirmo nuestra charla de 30 min sobre Living Benefits [día/hora]. Guarde este número — escríbame si algo cambia. — [Agente], Goodwill Financial»</span></li>
+  <li><span class="li li-en">If they gave referral hint — add referral to your warm list</span><span class="li li-lt">Jei užsiminė apie rekomendaciją — pridėk kontaktą prie šilto sąrašo</span><span class="li li-uk">Якщо натякнули на рекомендацію — додайте контакт до теплого списку</span><span class="li li-ru">Если намекнули на рекомендацию — добавьте контакт в тёплый список</span><span class="li li-pl">Jeśli wspomnieli o poleceniu — dodaj kontakt do ciepłej listy</span><span class="li li-es">Si dieron una pista de referido — agregue el referido a su lista cálida</span></li>
+  <li><span class="li li-en">Block 15 min on your calendar 1 hour before to prep the fact-finder + open their Keap record</span><span class="li li-lt">Užblokuok 15 min kalendoriuje 1 val. prieš, kad paruoštum fact-finder + atidarytum Keap kortelę</span><span class="li li-uk">Заблокуйте 15 хв у календарі за годину до, щоб підготувати анкету (fact-finder) + відкрити картку Keap</span><span class="li li-ru">Заблокируйте 15 минут в календаре за час до встречи, чтобы подготовить анкету (fact-finder) + открыть карточку Keap</span><span class="li li-pl">Zablokuj 15 min w kalendarzu godzinę wcześniej, aby przygotować ankietę (fact-finder) + otworzyć kartę Keap</span><span class="li li-es">Bloquee 15 min en su calendario 1 hora antes para preparar el cuestionario (fact-finder) + abrir el registro de Keap</span></li>
+</ul>
+
+<h2>
+  <span class="li li-en">Outcome of this call</span><span class="li li-lt">Šio skambučio rezultatas</span><span class="li li-uk">Результат цього дзвінка</span><span class="li li-ru">Результат этого звонка</span><span class="li li-pl">Wynik tej rozmowy</span><span class="li li-es">Resultado de esta llamada</span></h2>
+<div class="meta-card">
+  <div class="meta-grid">
+    <div class="meta-cell"><div class="label"><span class="li li-en">Contact name</span><span class="li li-lt">Kontakto vardas</span><span class="li li-uk">Ім'я контакту</span><span class="li li-ru">Имя контакта</span><span class="li li-pl">Imię kontaktu</span><span class="li li-es">Nombre del contacto</span></div><div class="fill" data-call="name"></div></div>
+    <div class="meta-cell"><div class="label"><span class="li li-en">Phone number</span><span class="li li-lt">Telefono numeris</span><span class="li li-uk">Номер телефону</span><span class="li li-ru">Номер телефона</span><span class="li li-pl">Numer telefonu</span><span class="li li-es">Número de teléfono</span></div><div class="fill" data-call="phone"></div></div>
+    <div class="meta-cell"><div class="label"><span class="li li-en">Appointment booked? (Y/N)</span><span class="li li-lt">Susitikimas paskirtas? (T/N)</span><span class="li li-uk">Зустріч призначено? (Т/Н)</span><span class="li li-ru">Встреча назначена? (Д/Н)</span><span class="li li-pl">Spotkanie umówione? (T/N)</span><span class="li li-es">¿Cita agendada? (S/N)</span></div><div class="fill" data-call="booked"></div></div>
+    <div class="meta-cell"><div class="label"><span class="li li-en">Date / time / format</span><span class="li li-lt">Data / laikas / formatas</span><span class="li li-uk">Дата / час / формат</span><span class="li li-ru">Дата / время / формат</span><span class="li li-pl">Data / godzina / format</span><span class="li li-es">Fecha / hora / formato</span></div><div class="fill" data-call="when"></div></div>
+    <div class="meta-cell"><div class="label"><span class="li li-en">Email / cell confirmed</span><span class="li li-lt">El. paštas / mobilusis patvirtinti</span><span class="li li-uk">Email / мобільний підтверджено</span><span class="li li-ru">Email / мобильный подтверждён</span><span class="li li-pl">Email / komórka potwierdzone</span><span class="li li-es">Email / celular confirmado</span></div><div class="fill" data-call="contact"></div></div>
+    <div class="meta-cell"><div class="label"><span class="li li-en">Top objection</span><span class="li li-lt">Pagrindinis prieštaravimas</span><span class="li li-uk">Головне заперечення</span><span class="li li-ru">Главное возражение</span><span class="li li-pl">Główne zastrzeżenie</span><span class="li li-es">Objeción principal</span></div><div class="fill" data-call="objection"></div></div>
+    <div class="meta-cell"><div class="label"><span class="li li-en">Notes for the meeting</span><span class="li li-lt">Pastabos susitikimui</span><span class="li li-uk">Нотатки для зустрічі</span><span class="li li-ru">Заметки для встречи</span><span class="li li-pl">Notatki na spotkanie</span><span class="li li-es">Notas para la reunión</span></div><div class="fill" data-call="notes"></div></div>
+    <div class="meta-cell"><div class="label"><span class="li li-en">Next-action follow-up</span><span class="li li-lt">Kitas veiksmas</span><span class="li li-uk">Наступна дія</span><span class="li li-ru">Следующее действие</span><span class="li li-pl">Następne działanie</span><span class="li li-es">Próxima acción de seguimiento</span></div><div class="fill" data-call="followup"></div></div>
+  </div>
+</div>
+
+<div class="submit-bar no-print" id="submitBar">
+  <div class="submit-left">
+    <div class="counter">
+      <div class="counter-num" id="callCountToday">0</div>
+      <div class="counter-lbl"><span class="li li-en">calls logged today</span><span class="li li-lt">skambučiai šiandien</span><span class="li li-uk">дзвінків сьогодні</span><span class="li li-ru">звонков сегодня</span><span class="li li-pl">rozmów dziś</span><span class="li li-es">llamadas hoy</span></div>
+    </div>
+    <div class="counter">
+      <div class="counter-num" id="apptCountToday" style="color:var(--green);">0</div>
+      <div class="counter-lbl"><span class="li li-en">appointments booked</span><span class="li li-lt">paskirti susitikimai</span><span class="li li-uk">призначено зустрічей</span><span class="li li-ru">встреч назначено</span><span class="li li-pl">umówionych spotkań</span><span class="li li-es">citas agendadas</span></div>
+    </div>
+  </div>
+  <div class="submit-actions">
+    <button class="btn-ghost" id="copyKeapBtn"></button>
+    <button class="btn-primary" id="submitCallBtn"></button>
+  </div>
+</div>
+
+<footer>
+  <span>Goodwill Financial · Living Benefits Team · Phone Invitation Script · multilingual v2</span>
+  <span class="brand">
+    <span class="li li-en">Protect today, prepare for tomorrow.</span>
+    <span class="li li-lt">Apsaugoti šiandien, pasiruošti rytojui.</span>
+    <span class="li li-uk">Захистити сьогодні, підготуватися до завтра.</span>
+    <span class="li li-ru">Защитить сегодня, подготовиться к завтра.</span>
+    <span class="li li-pl">Chronić dziś, przygotować się na jutro.</span>
+    <span class="li li-es">Proteger hoy, prepararse para mañana.</span>
+  </span>
+</footer>
+
+<style>
+  input.cb-real { width: 14px; height: 14px; margin: 0 8px 0 0; vertical-align: middle; cursor: pointer; accent-color: var(--navy); flex-shrink: 0; }
+  input.txt-real { border: none; border-bottom: 1.5px solid #cbd5e1; background: transparent; font-family: inherit; font-size: 10pt; color: var(--ink); padding: 3px 4px; min-height: 22px; width: 100%; outline: none; box-sizing: border-box; transition: border-color 0.15s, background 0.15s; }
+  input.txt-real:focus { border-bottom-color: var(--gold); background: var(--gold-soft); }
+  ul.checks li.has-real-cb { padding-left: 4px; }
+  ul.checks li.has-real-cb::before { display: none !important; }
+  .clear-btn { background: rgba(255,255,255,0.1) !important; color: #fff !important; border: 1px solid rgba(255,255,255,0.3) !important; padding: 7px 14px !important; font-weight: 700; cursor: pointer; border-radius: 6px; font-size: 9.5pt; margin-right: 10px; }
+
+  /* === Submit bar === */
+  .submit-bar {
+    position: sticky; bottom: 16px;
+    background: linear-gradient(180deg, var(--paper) 0%, var(--paper-soft) 100%);
+    border: 2px solid var(--gold);
+    border-radius: 12px;
+    padding: 14px 20px;
+    margin: 20px 0 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 8px 24px rgba(15,23,42,0.12);
+    z-index: 50;
+  }
+  .submit-left { display: flex; gap: 18px; align-items: center; }
+  .counter { text-align: center; min-width: 70px; }
+  .counter-num {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 26pt;
+    color: var(--navy);
+    line-height: 1;
+  }
+  .counter-lbl {
+    font-size: 8pt;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    font-weight: 700;
+    margin-top: 2px;
+  }
+  .submit-actions { display: flex; gap: 10px; }
+  .btn-primary {
+    background: var(--gold); color: var(--navy);
+    border: none; padding: 12px 22px;
+    font-weight: 700; cursor: pointer; border-radius: 8px;
+    font-size: 11pt; font-family: inherit;
+    letter-spacing: 0.2px;
+    transition: background 0.15s, transform 0.05s;
+  }
+  .btn-primary:hover { background: var(--gold-light); }
+  .btn-primary:active { transform: translateY(1px); }
+  .btn-ghost {
+    background: var(--paper); color: var(--navy);
+    border: 1.5px solid var(--line);
+    padding: 10px 16px;
+    font-weight: 700; cursor: pointer; border-radius: 8px;
+    font-size: 10pt; font-family: inherit;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .btn-ghost:hover { border-color: var(--gold); background: var(--gold-soft); }
+  .btn-ghost.copied { background: var(--gold-soft); border-color: var(--gold); }
+
+  /* === Submit toast === */
+  .submit-toast {
+    position: fixed; top: 20px; right: 20px;
+    background: #059669; color: #fff;
+    padding: 14px 22px; border-radius: 10px;
+    font-weight: 700; font-size: 10.5pt;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+    z-index: 1000;
+    opacity: 0; transform: translateY(-10px);
+    transition: opacity 0.3s, transform 0.3s;
+    pointer-events: none;
+    max-width: 340px;
+  }
+  .submit-toast.show { opacity: 1; transform: translateY(0); }
+
+  @media print { .submit-bar, .submit-toast { display: none !important; } }
+  .saved-flag { color: var(--gold-light); font-size: 8.5pt; margin-left: 10px; opacity: 0; transition: opacity 0.3s; font-weight: 600; }
+  .saved-flag.show { opacity: 1; }
+  @media print {
+    input.cb-real { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    input.txt-real { border-color: transparent !important; background: transparent !important; border-bottom: 1.5px solid #cbd5e1 !important; }
+  }
+</style>
+<script>
+(function() {
+  const supported = ['en','lt','uk','ru','pl','es'];
+
+  // ---- UI string dictionary (JS-managed dynamic text) ----
+  const TR = {
+    clearCall:    {en:'Clear call', lt:'Išvalyti skambutį', uk:'Очистити дзвінок', ru:'Очистить звонок', pl:'Wyczyść rozmowę', es:'Borrar llamada'},
+    clearConfirm: {en:'Clear all filled fields?', lt:'Išvalyti visus užpildytus laukus?', uk:'Очистити всі заповнені поля?', ru:'Очистить все заполненные поля?', pl:'Wyczyścić wszystkie wypełnione pola?', es:'¿Borrar todos los campos llenados?'},
+    savedLocally: {en:'✓ saved locally', lt:'✓ išsaugota vietoje', uk:'✓ збережено локально', ru:'✓ сохранено локально', pl:'✓ zapisano lokalnie', es:'✓ guardado localmente'},
+    copyKeap:     {en:'Copy Keap note', lt:'Kopijuoti Keap pastabą', uk:'Копіювати нотатку Keap', ru:'Копировать заметку Keap', pl:'Kopiuj notatkę Keap', es:'Copiar nota Keap'},
+    copied:       {en:'✓ Copied — paste into Keap note', lt:'✓ Nukopijuota — įklijuok į Keap', uk:'✓ Скопійовано — встав у Keap', ru:'✓ Скопировано — вставьте в Keap', pl:'✓ Skopiowano — wklej do Keap', es:'✓ Copiado — pegue en Keap'},
+    submitNext:   {en:'Submit & start next call →', lt:'Pateikti ir pradėti kitą →', uk:'Надіслати й почати наступний →', ru:'Отправить и начать следующий →', pl:'Wyślij i zacznij następny →', es:'Enviar y empezar la siguiente →'},
+    loggedReset:  {en:'✓ Call logged · form reset for next call', lt:'✓ Skambutis įrašytas · forma paruošta kitam', uk:'✓ Дзвінок збережено · форму скинуто', ru:'✓ Звонок записан · форма сброшена', pl:'✓ Rozmowa zapisana · formularz wyczyszczony', es:'✓ Llamada registrada · formulario reiniciado'},
+    logged:       {en:'✓ Call logged', lt:'✓ Skambutis įrašytas', uk:'✓ Дзвінок збережено', ru:'✓ Звонок записан', pl:'✓ Rozmowa zapisana', es:'✓ Llamada registrada'},
+    noFields:     {en:'No outcome fields filled. Submit this call anyway?', lt:'Nėra užpildytų laukų. Vis tiek pateikti?', uk:'Поля результату порожні. Все одно надіслати?', ru:'Поля результата не заполнены. Всё равно отправить?', pl:'Pola wyniku puste. Wysłać mimo to?', es:'No hay campos llenados. ¿Enviar de todos modos?'},
+  };
+  const t = (key) => (TR[key] && TR[key][document.body.dataset.lang]) || TR[key].en;
+
+  // ---- language switching ----
+  const savedLang = localStorage.getItem('goodwill-phone-lang');
+  let copyState = false; // true while showing "copied"
+  function setLang(l) {
+    document.body.dataset.lang = l;
+    document.documentElement.lang = l;
+    document.querySelectorAll('.lang-switcher button').forEach((b) => { b.classList.toggle('active', b.dataset.l === l); });
+    try { localStorage.setItem('goodwill-phone-lang', l); } catch(e) {}
+    applyDynamicText();
+  }
+  function applyDynamicText() {
+    const clearBtn = document.querySelector('.clear-btn');
+    if (clearBtn) clearBtn.textContent = t('clearCall');
+    const savedFlagEl = document.querySelector('.saved-flag');
+    if (savedFlagEl) savedFlagEl.textContent = t('savedLocally');
+    const copyBtn = document.getElementById('copyKeapBtn');
+    if (copyBtn && !copyState) copyBtn.textContent = t('copyKeap');
+    const submitBtn = document.getElementById('submitCallBtn');
+    if (submitBtn) submitBtn.textContent = t('submitNext');
+  }
+
+  const startLang = supported.includes(savedLang) ? savedLang : 'en';
+  document.querySelectorAll('.lang-switcher button').forEach((btn) => {
+    btn.addEventListener('click', () => setLang(btn.dataset.l));
+  });
+
+  // ---- fillable form ----
+  const ns = 'goodwill-form-' + location.pathname.replace(/[^a-zA-Z0-9]/g,'_');
+  let data = {};
+  try { data = JSON.parse(localStorage.getItem(ns) || '{}'); } catch(e) {}
+  let counter = 0;
+  const nextKey = (p) => p + '-' + (counter++);
+  const allInputs = [];
+
+  document.querySelectorAll('ul.checks > li').forEach((li) => {
+    const cb = document.createElement('input');
+    cb.type = 'checkbox'; cb.className = 'cb-real'; cb.dataset.k = nextKey('cb');
+    if (data[cb.dataset.k]) cb.checked = true;
+    li.classList.add('has-real-cb'); li.insertBefore(cb, li.firstChild);
+    allInputs.push(cb);
+  });
+  document.querySelectorAll('div.fill').forEach((div) => {
+    const input = document.createElement('input');
+    input.type = 'text'; input.className = 'txt-real'; input.dataset.k = nextKey('txt');
+    if (div.dataset.call) input.dataset.call = div.dataset.call;
+    div.parentNode.replaceChild(input, div);
+    if (data[input.dataset.k]) input.value = data[input.dataset.k];
+    allInputs.push(input);
+  });
+
+  let savedFlag;
+  const save = () => {
+    const out = {};
+    allInputs.forEach((el) => { const k = el.dataset.k; if (k) out[k] = el.type === 'checkbox' ? el.checked : el.value; });
+    try { localStorage.setItem(ns, JSON.stringify(out)); } catch(e) {}
+    if (savedFlag) { savedFlag.classList.add('show'); clearTimeout(savedFlag._t); savedFlag._t = setTimeout(() => savedFlag.classList.remove('show'), 1200); }
+  };
+  allInputs.forEach((el) => { el.addEventListener('input', save); el.addEventListener('change', save); });
+
+  const printBar = document.querySelector('.print-bar');
+  if (printBar) {
+    const clearBtn = document.createElement('button');
+    clearBtn.className = 'clear-btn';
+    clearBtn.onclick = () => { if (confirm(t('clearConfirm'))) { try { localStorage.removeItem(ns); } catch(e) {} location.reload(); } };
+    savedFlag = document.createElement('span');
+    savedFlag.className = 'saved-flag';
+    const printBtn = printBar.querySelector('button');
+    if (printBtn) { printBar.insertBefore(clearBtn, printBtn); printBar.insertBefore(savedFlag, printBtn); }
+  }
+
+  // ============ Submit / new-call flow ============
+  const CALL_LOG_KEY = 'goodwill-call-log';
+  const PROFILE_KEY = 'goodwill-agent-profile';
+  let profile = {};
+  try { profile = JSON.parse(localStorage.getItem(PROFILE_KEY) || '{}'); } catch(e) {}
+
+  function loadCallLog() {
+    try { return JSON.parse(localStorage.getItem(CALL_LOG_KEY) || '[]'); } catch(e) { return []; }
+  }
+  function saveCallLog(log) {
+    try { localStorage.setItem(CALL_LOG_KEY, JSON.stringify(log)); } catch(e) {}
+  }
+  function todayISO() {
+    const d = new Date();
+    return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+  }
+
+  // booked counts if first letter is Y/yes (EN/ES), T/taip-tak (LT/PL), Д/да (RU), Т/так (UA)
+  const BOOKED_RE = /^[ytдтds]/i;
+  function updateCounters() {
+    const log = loadCallLog();
+    const today = todayISO();
+    const todays = log.filter(c => c.date === today);
+    const booked = todays.filter(c => BOOKED_RE.test((c.outcome.booked || '').trim()));
+    const ce = document.getElementById('callCountToday');
+    const ae = document.getElementById('apptCountToday');
+    if (ce) ce.textContent = String(todays.length);
+    if (ae) ae.textContent = String(booked.length);
+  }
+
+  function collectOutcome() {
+    const out = {};
+    document.querySelectorAll('input.txt-real[data-call]').forEach(inp => {
+      out[inp.dataset.call] = inp.value.trim();
+    });
+    return out;
+  }
+
+  function buildKeapNote(outcome) {
+    const lang = document.body.dataset.lang || 'en';
+    const date = new Date().toLocaleString();
+    const lines = [
+      'Goodwill Phone Invitation Call · ' + date + ' · lang: ' + lang.toUpperCase(),
+    ];
+    if (outcome.booked) lines.push('Appointment booked: ' + outcome.booked);
+    if (outcome.when) lines.push('When/format: ' + outcome.when);
+    if (outcome.contact) lines.push('Email/cell confirmed: ' + outcome.contact);
+    if (outcome.objection) lines.push('Top objection: ' + outcome.objection);
+    if (outcome.notes) lines.push('Notes for meeting: ' + outcome.notes);
+    if (outcome.followup) lines.push('Next-action follow-up: ' + outcome.followup);
+    return lines.join('\n');
+  }
+
+  function showToast(msg) {
+    let toast = document.getElementById('submitToast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'submitToast';
+      toast.className = 'submit-toast';
+      document.body.appendChild(toast);
+    }
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toast._t);
+    toast._t = setTimeout(() => toast.classList.remove('show'), 3500);
+  }
+
+  function submitCall(resetAfter) {
+    const outcome = collectOutcome();
+    const hasAnything = Object.values(outcome).some(v => v);
+    if (!hasAnything) {
+      if (!confirm(t('noFields'))) return;
+    }
+    const entry = {
+      agent: profile.agent || 'unknown',
+      date: todayISO(),
+      ts: Math.floor(Date.now() / 1000),
+      lang: document.body.dataset.lang || 'en',
+      outcome,
+    };
+    const log = loadCallLog();
+    log.push(entry);
+    saveCallLog(log);
+
+    if (resetAfter) {
+      try { localStorage.removeItem(ns); } catch(e) {}
+      showToast(t('loggedReset'));
+      setTimeout(() => location.reload(), 700);
+    } else {
+      updateCounters();
+      showToast(t('logged'));
+    }
+  }
+
+  const submitBtn = document.getElementById('submitCallBtn');
+  if (submitBtn) submitBtn.onclick = () => submitCall(true);
+
+  const copyBtn = document.getElementById('copyKeapBtn');
+  if (copyBtn) {
+    copyBtn.onclick = async () => {
+      const note = buildKeapNote(collectOutcome());
+      try {
+        await navigator.clipboard.writeText(note);
+      } catch(e) {
+        const ta = document.createElement('textarea');
+        ta.value = note; document.body.appendChild(ta); ta.select();
+        document.execCommand('copy'); document.body.removeChild(ta);
+      }
+      copyState = true;
+      copyBtn.classList.add('copied');
+      copyBtn.textContent = t('copied');
+      setTimeout(() => {
+        copyState = false;
+        copyBtn.classList.remove('copied');
+        copyBtn.textContent = t('copyKeap');
+      }, 2500);
+    };
+  }
+
+  // initial paint
+  setLang(startLang);
+  updateCounters();
+})();
+</script>
+
+</body>
+</html>
