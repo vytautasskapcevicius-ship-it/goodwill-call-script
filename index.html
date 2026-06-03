@@ -830,6 +830,7 @@
 <script>
 (function() {
   const supported = ['en','lt','uk','ru','pl','es'];
+  const KEAP_WORKER_URL = "https://goodwill-keap-followup.goodwill-lbt.workers.dev"; // Cloudflare Worker (holds Keap key server-side)
 
   // ---- UI string dictionary (JS-managed dynamic text) ----
   const TR = {
@@ -843,6 +844,8 @@
     logged:       {en:'✓ Call logged', lt:'✓ Skambutis įrašytas', uk:'✓ Дзвінок збережено', ru:'✓ Звонок записан', pl:'✓ Rozmowa zapisana', es:'✓ Llamada registrada'},
     noFields:     {en:'No outcome fields filled. Submit this call anyway?', lt:'Nėra užpildytų laukų. Vis tiek pateikti?', uk:'Поля результату порожні. Все одно надіслати?', ru:'Поля результата не заполнены. Всё равно отправить?', pl:'Pola wyniku puste. Wysłać mimo to?', es:'No hay campos llenados. ¿Enviar de todos modos?'},
     openKeap:     {en:'Open in Keap ↗', lt:'Atidaryti Keap ↗', uk:'Відкрити в Keap ↗', ru:'Открыть в Keap ↗', pl:'Otwórz w Keap ↗', es:'Abrir en Keap ↗'},
+    keapSaved:    {en:'✓ Logged to Keap (note + follow-up)', lt:'✓ Įrašyta į Keap (pastaba + sekimas)', uk:'✓ Збережено в Keap (нотатка + завдання)', ru:'✓ Сохранено в Keap (заметка + задача)', pl:'✓ Zapisano w Keap (notatka + zadanie)', es:'✓ Guardado en Keap (nota + seguimiento)'},
+    keapFail:     {en:'Saved locally — Keap sync failed', lt:'Įrašyta vietoje — Keap nepavyko', uk:'Збережено локально — Keap не вдалося', ru:'Сохранено локально — Keap не удалось', pl:'Zapisano lokalnie — Keap nie powiódł się', es:'Guardado local — falló Keap'},
   };
   const t = (key) => (TR[key] && TR[key][document.body.dataset.lang]) || TR[key].en;
   let currentCid = '';  // Keap contact ID passed via URL (turboDial merge field)
@@ -990,7 +993,21 @@
     toast._t = setTimeout(() => toast.classList.remove('show'), 3500);
   }
 
-  function submitCall(resetAfter) {
+  async function pushToKeap(outcome) {
+    const urlOk = KEAP_WORKER_URL && !/WORKER_SUBDOMAIN/.test(KEAP_WORKER_URL);
+    if (!currentCid || !urlOk) return null;  // not attempted (manual use / not configured)
+    try {
+      const res = await fetch(KEAP_WORKER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ contactId: currentCid, lang: document.body.dataset.lang || 'en', agent: (profile.agent || ''), outcome }),
+      });
+      const jr = await res.json().catch(() => ({}));
+      return { ok: res.ok && jr.ok !== false, detail: jr };
+    } catch (e) { return { ok: false, detail: { error: 'network' } }; }
+  }
+
+  async function submitCall(resetAfter) {
     const outcome = collectOutcome();
     const hasAnything = Object.values(outcome).some(v => v);
     if (!hasAnything) {
@@ -1007,13 +1024,19 @@
     log.push(entry);
     saveCallLog(log);
 
+    const keap = await pushToKeap(outcome);
+    let msg;
+    if (keap && keap.ok) msg = t('keapSaved');
+    else if (keap) msg = t('keapFail');
+    else msg = resetAfter ? t('loggedReset') : t('logged');
+
     if (resetAfter) {
       try { localStorage.removeItem(ns); } catch(e) {}
-      showToast(t('loggedReset'));
-      setTimeout(() => location.reload(), 700);
+      showToast(msg);
+      setTimeout(() => location.reload(), 1100);
     } else {
       updateCounters();
-      showToast(t('logged'));
+      showToast(msg);
     }
   }
 
