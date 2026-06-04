@@ -1071,7 +1071,8 @@
   let prefillLang = '';
   (function prefillFromURL() {
     const q = new URLSearchParams(location.search);
-    const pick = (...keys) => { for (const k of keys) { const v = q.get(k); if (v && v.trim() && !/^~/.test(v.trim())) return v.trim(); } return ''; };
+    // accept only real values — reject unexpanded merge tokens (Keap ~...~ or turboDial <...>)
+    const pick = (...keys) => { for (const k of keys) { const v = q.get(k); if (v) { const s = v.trim(); if (s && !/[<>~]/.test(s)) return s; } } return ''; };
     let fullName = pick('name','contactname','fullname');
     const fn = pick('first_name','firstname','first');
     const ln = pick('last_name','lastname','last');
