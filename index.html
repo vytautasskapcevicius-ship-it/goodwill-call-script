@@ -382,6 +382,8 @@
 </head>
 <body data-lang="en">
 
+<div id="td-debug" class="no-print" style="background:#fde68a;color:#111;padding:8px 12px;border-radius:8px;margin:0 0 12px;font-size:11px;font-family:monospace;word-break:break-all;border:1px solid #d97706;">debug: waiting…</div>
+
 <div class="print-bar no-print">
   <span>
     <span class="li li-en">Phone invitation script · 6 languages · fillable · ~3–5 min per call</span>
@@ -1082,6 +1084,9 @@
     currentCid = pick('contactid','contact_id','cid','keapid');
     const langP = (pick('lang','language') || '').toLowerCase().slice(0,2);
     if (supported.includes(langP)) prefillLang = langP;
+
+    const dbg = document.getElementById('td-debug');
+    if (dbg) dbg.textContent = 'debug · turboDial sent → ' + (location.search || '(NO params in URL)') + '  ‖ parsed: first=[' + fn + '] last=[' + ln + '] phone=[' + phoneP + '] email=[' + emailP + '] cid=[' + currentCid + ']';
 
     const hasParams = fullName || phoneP || emailP || currentCid;
     if (!hasParams) { wireOpenKeap(); return; }
